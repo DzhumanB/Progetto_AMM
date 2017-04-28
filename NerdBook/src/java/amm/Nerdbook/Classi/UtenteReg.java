@@ -5,7 +5,7 @@
 package amm.Nerdbook.Classi;
 
 public class UtenteReg {
-    private int id;
+    private int idUtente;
     private String nome;
     private String cognome;
     private String frasePres;
@@ -14,7 +14,7 @@ public class UtenteReg {
     private String password;
     
     public UtenteReg(){
-        this.id=0;
+        this.idUtente=0;
         this.nome="";
         this.cognome="";
         this.frasePres="";
@@ -23,12 +23,12 @@ public class UtenteReg {
         this.password="";
     }
     
-    public int getId(){
-        return this.id;
+    public int getIdUtente(){
+        return this.idUtente;
     }
     
-    public void setId(int id){
-        this.id = id;
+    public void setIdUtente(int idUtente){
+        this.idUtente = idUtente;
     }
     
     public String getNome(){
