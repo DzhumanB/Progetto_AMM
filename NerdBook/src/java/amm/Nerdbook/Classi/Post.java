@@ -4,17 +4,25 @@
 
 package amm.Nerdbook.Classi;
 
+
 public class Post {
+    
+    public enum Type {
+        TEXT, IMAGE, AUDIO;
+    };
+    
     private int idPost;
     private UtenteReg user;
     private String contain;
     private String urlFotoProfile;
+    private Type postType;
 
     public Post(){
         this.idPost=0;
         this.user=null;
         this.contain="";
         this.urlFotoProfile="";
+        this.postType = Type.TEXT;
     }
     
     public int getIdPost(){
@@ -47,6 +55,14 @@ public class Post {
     
     public void setUrlFotoProfile(String urlFotoProfile){
         this.urlFotoProfile = urlFotoProfile;
+    }
+    
+    public Type getPostType(){
+        return this.postType;
+    }
+    
+    public void setPostType(Type postType){
+        this.postType = postType;
     }
 }
 

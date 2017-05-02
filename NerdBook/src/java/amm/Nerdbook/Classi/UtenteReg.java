@@ -35,7 +35,7 @@ public class UtenteReg {
         return this.nome;
     }
     
-    public void getNome(String nome){
+    public void setNome(String nome){
         this.nome = nome;
     }
     
@@ -43,7 +43,7 @@ public class UtenteReg {
         return this.cognome;
     }
     
-    public void getCognome(String cognome){
+    public void setCognome(String cognome){
         this.cognome = cognome;
     }
     
@@ -51,7 +51,7 @@ public class UtenteReg {
         return this.frasePres;
     }
     
-    public void getFrasePres(String frasePres){
+    public void setFrasePres(String frasePres){
         this.frasePres = frasePres;
     }
     
@@ -59,7 +59,7 @@ public class UtenteReg {
         return this.dataNasc;
     }
     
-    public void getDataNasc(String dataNasc){
+    public void setDataNasc(String dataNasc){
         this.dataNasc = dataNasc;
     }
     
@@ -67,7 +67,7 @@ public class UtenteReg {
         return this.username;
     }
     
-    public void getUsername(String username){
+    public void setUsername(String username){
         this.username = username;
     }
     
@@ -75,7 +75,7 @@ public class UtenteReg {
         return this.password;
     }
     
-    public void getPassword(String password){
+    public void setPassword(String password){
         this.password = password;
     }
 }
