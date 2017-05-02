@@ -52,17 +52,16 @@ public class GruppoFactory {
         }
         return null;
     }
-/**
-    public List getGruppoList(Gruppo gruppo) {
-
-        List<Gruppo> listGruppo = new ArrayList<>();
-
-        for(Gruppo gruppo : this.listGruppo) {
-            if (gruppo.getUser().equals(utente)) {
-                listGruppo.add(gruppo);
-            }
+    
+    public Gruppo getGruppoByName(String nomeGruppo){
+        for(Gruppo gruppo : this.listGruppo){
+            if(gruppo.getNomeGruppo().equals(nomeGruppo))
+                return gruppo;
         }
+        return null;
+    }
+    
+    public List getGruppoList(){
         return listGruppo;
     }
-**/
 }
