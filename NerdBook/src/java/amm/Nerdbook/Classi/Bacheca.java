@@ -27,160 +27,127 @@ public class Bacheca extends HttpServlet {
                 request.setAttribute("negato",true);
                 request.getRequestDispatcher("bacheca.jsp").forward(request, response);
             }else{
-                in = session.getAttribute("user"); //utente loggato: chi è
+                in = session.getAttribute("user");
                 request.setAttribute("negato",false);
-                //lista utenti e gruppi presenti nel sistema
-                List<UtenteReg> lu = UtenteRegFactory.getInstance().get();
+                
+                List<UtenteReg> lu = UtenteRegFactory.getInstance().getListUtenteReg();
                 session.setAttribute("utenti", lu);
-                List<Gruppi> lg = GruppiFactory.getInstance().getGroupList();
+                List<Gruppo> lg = GruppoFactory.getInstance().getListGruppo();
                 session.setAttribute("gruppi", lg);
-                //raccolta parametri get: visualizza bacheca oppure visualizza gruppo?
-                Object vb = request.getParameter("visualizza_bacheca"); //utente del quale si vuole visualizzare la bacheca
+                
+                Object vb = request.getParameter("visualizza_bacheca"); 
                 Object vg = request.getParameter("visualizza_gruppo");
-                UtentiRegistrati u;
-                Gruppi g;
-                //se visualizza gruppi è presente nella query string
-                if(vg != null)
-                {
-                    //cercare il gruppo corrispondente e mostrare i post
+                UtenteReg u;
+                Gruppo g;
+                
+                if(vg != null){
                     String n = vg.toString();
-                    g = GruppiFactory.getInstance().getGroupByName(n);
-                    if(g != null)
-                    {
+                    g = GruppoFactory.getInstance().getGruppoByNome(n);
+                    
+                    if(g != null){
                         request.setAttribute("x", g);
-                        //mi serve nel jsp per mostrare i post del gruppo
-                        List<Post> p = PostFactory.getInstance().getPostByGroup(g);
-                        if(p != null)
+                        List<Post> p = PostFactory.getInstance().getPostByGruppo(g);
+                        
+                        if(p != null){
                             request.setAttribute("post", p);
+                        }
                     }
-                } //se visualizza bacheca è presente nella query string
-                else if(vb != null)
-                {
-                    //f sta per voglio visualizzare la bacheca di un utente (corrente o presente nel sistema)
+                }else if(vb != null){
                     request.setAttribute("f",true);
                     String n = vb.toString();
-                    u = UtentiRegistratiFactory.getInstance().getUserByName(n);
-                    request.setAttribute("x", u); //mi serve nel jsp per decidere chi è l'autore dei post
+                    u = UtenteRegFactory.getInstance().getUserByNome(n);
+                    request.setAttribute("x", u); 
                     List<Post> p = PostFactory.getInstance().getPostByUser(u);
-                    if(p != null)
+                    if(p != null){
                         request.setAttribute("post", p);
-                }
-                else
-                //visualizzare la bacheca dell'utente corrente
-                {
+                    }
+                }else{
                     request.setAttribute("f",true);
-                    u = (UtentiRegistrati)in;
+                    u = (UtenteReg)in;
                     request.setAttribute("x", u);
                 }
-                //se nella qs è presente almeno uno di questi elementi significa che si sta cercando di inviare un post
-                if(request.getParameter("stato") != null || request.getParameter("tipo") != null || request.getParameter("allegato") != null)
-                {
+                
+                if(request.getParameter("stato") != null || request.getParameter("tipo") != null || request.getParameter("allegato") != null){
                     String testo = request.getParameter("stato");
                     String allegato = request.getParameter("link");
                     String radio = request.getParameter("tipo");
-                    Post.pType tipo = null;
-                    //tipologia selezionata?
-                    if(radio != null)
-                    {
-                        if(radio.equals("imm"))
-                        {
-                            //immagine
-                            if(allegato != null)
-                            {
-                                //ci deve essere l'allegato, altrimenti c'è errore
-                                if (!(allegato.equals("")))
-                                {
+                    Post.Tipo tipo = null;
+                    
+                    if(radio != null){
+                        if(radio.equals("imm")){
+                            if(allegato != null){
+                                if (!(allegato.equals(""))){
                                     request.setAttribute("multimedia",1);
-                                    tipo = Post.pType.IMAGE;
+                                    tipo = Post.Tipo.IMAGE;
                                     request.setAttribute("erroretipo", false);
                                     request.setAttribute("inspost", true);
-                                }
-                                else
+                                }else{
                                     request.setAttribute("erroretipo", true);
-                                    
-                            }
-                            else
-                            {
+                                }
+                            }else{
                                 request.setAttribute("erroretipo", true);
                             }
-                        }
-                        else if(radio.equals("url"))
-                        {
-                            //tipologia url, è necessario l'allegato
-                            if(allegato != null)
-                            {
-                                if (!(allegato.equals("")))
-                                {
+                        }else if(radio.equals("url")){
+                            if(allegato != null){
+                                if (!(allegato.equals(""))){
                                     request.setAttribute("multimedia", 2);
-                                    tipo = Post.pType.URL;
+                                    tipo = Post.Tipo.URL;
                                     request.setAttribute("erroretipo", false);
                                     request.setAttribute("inspost", true);
-                                }
-                                else
+                                }else{
                                     request.setAttribute("erroretipo", true);
-                                    
+                                }    
                             }
-                            else
-                            {
+                            else{
                                 request.setAttribute("erroretipo", true);
                             }
                         }
-                    }
-                    //solo testo
-                    else if(testo != null)
-                    {
-                        if(!testo.equals(""))
-                        {
+                    }else if(testo != null){
+                        if(!testo.equals("")){
                             request.setAttribute("inspost", true);
                             request.setAttribute("erroretipo", false);
-                            tipo = Post.pType.TEXT;
+                            tipo = Post.Tipo.TEXT;
                         }
                     }
-                    if(!allegato.equals(""))
-                    {
-                        if(tipo == null || !testo.equals(""))
-                        {
+                    if(!allegato.equals("")){
+                        if(tipo == null || !testo.equals("")){
                             request.setAttribute("erroretipo", true);
                             request.setAttribute("inspost", false);
                         }                        
                     }
-                    //se sono stati inseriti dati
-                    if(request.getAttribute("erroretipo") != null)
-                        //e se l'inserimento è andato a buon fine
-                    {
-                        if(!(boolean)request.getAttribute("erroretipo"))
-                        {
+                    if(request.getAttribute("erroretipo") != null){
+                        if(!(boolean)request.getAttribute("erroretipo")){
                             request.setAttribute("inspost", true);
-                            //creare nuovo post
+                            
                             Post n = new Post();
-                            n.setAutore((UtentiRegistrati)session.getAttribute("user"));
-                            if(vb != null) //post su bacheca altrui
-                                n.setDestinatario(UtentiRegistratiFactory.getInstance().getUserByName(vb.toString()));
-                            else //post su bacheca utente corrente
-                                n.setDestinatario((UtentiRegistrati)session.getAttribute("user"));
-                            if(vg != null) //post su gruppo
-                                n.setGruppo(GruppiFactory.getInstance().getGroupByName(vg.toString()));
-                            n.setTipologia(tipo);
-                            if(tipo == Post.pType.TEXT)
-                                n.setContenuto(request.getParameter("stato"));
-                            else if(tipo == Post.pType.URL || tipo == Post.pType.IMAGE)
-                                n.setContenuto(request.getParameter("link"));
+                            n.setUser((UtenteReg)session.getAttribute("user"));
+                            
+                            if(vb != null){
+                                n.setDestination(UtenteRegFactory.getInstance().getUserByNome(vb.toString()));
+                            }else{
+                                n.setDestination((UtenteReg)session.getAttribute("user"));
+                            }
+                            if(vg != null){
+                                n.setGruppo(GruppoFactory.getInstance().getGruppoByNome(vg.toString()));
+                            }
+                            n.setPostTipo(tipo);
+                            if(tipo == Post.Tipo.TEXT){
+                                n.setContain(request.getParameter("stato"));
+                            }else if(tipo == Post.Tipo.URL || tipo == Post.Tipo.IMAGE){
+                                n.setContain(request.getParameter("link"));
+                            }
                             request.setAttribute("n",n);
                         }
                     }
                 }
-                //conferma invio post
-                if(request.getParameter("conferma") != null)
-                {
-                    if((request.getParameter("conferma").equals("true")))
+                if(request.getParameter("conferma") != null){
+                    if((request.getParameter("conferma").equals("true"))){
                         request.setAttribute("conferma", true);
+                    }
                 }
                 request.getRequestDispatcher("bacheca.jsp").forward(request, response);
             }
-        }
-        else
-        {
-            //accesso negato
+        }else{
             request.setAttribute("negato",true);
             request.getRequestDispatcher("profilo.jsp").forward(request, response);
         }

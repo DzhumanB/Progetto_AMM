@@ -1,28 +1,30 @@
 /*
  * @author Dzhuman Bohdan
  */
-
 package amm.Nerdbook.Classi;
-
 
 public class Post {
     
-    public enum Type {
-        TEXT, IMAGE, AUDIO;
+    public enum Tipo {
+        TEXT, IMAGE, AUDIO, URL;
     };
     
     private int idPost;
     private UtenteReg user;
     private String contain;
     private String urlFotoProfile;
-    private Type postType;
+    private Tipo postTipo;
+    private Gruppo gruppo;
+    private UtenteReg destination;
 
     public Post(){
         this.idPost=0;
         this.user=null;
         this.contain="";
         this.urlFotoProfile="";
-        this.postType = Type.TEXT;
+        this.postTipo = Tipo.TEXT;
+        this.gruppo = null;
+        this.destination = null;
     }
     
     public int getIdPost(){
@@ -57,12 +59,28 @@ public class Post {
         this.urlFotoProfile = urlFotoProfile;
     }
     
-    public Type getPostType(){
-        return this.postType;
+    public Tipo getPostTipo(){
+        return this.postTipo;
     }
     
-    public void setPostType(Type postType){
-        this.postType = postType;
+    public void setPostTipo(Tipo postTipo){
+        this.postTipo = postTipo;
+    }
+    
+    public Gruppo getGruppo() {
+        return gruppo;
+    }
+
+    public void setGruppo(Gruppo gruppo) {
+        this.gruppo = gruppo;
+    }
+    
+    public UtenteReg getDestination(){
+        return destination;
+    }
+    
+    public void setDestination(UtenteReg destination){
+        this.destination = destination;
     }
 }
 

@@ -53,7 +53,7 @@ public class GruppoFactory {
         return null;
     }
     
-    public Gruppo getGruppoByName(String nomeGruppo){
+    public Gruppo getGruppoByNome(String nomeGruppo){
         for(Gruppo gruppo : this.listGruppo){
             if(gruppo.getNomeGruppo().equals(nomeGruppo))
                 return gruppo;
@@ -61,7 +61,7 @@ public class GruppoFactory {
         return null;
     }
     
-    public List getGruppoList(){
+    public List getListGruppo(){
         return listGruppo;
     }
 }

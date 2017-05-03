@@ -4,6 +4,7 @@
 package amm.Nerdbook.Classi;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class UtenteRegFactory {
     
@@ -78,5 +79,20 @@ public class UtenteRegFactory {
             }
         }
         return -1;
+    }
+    
+    public UtenteReg getUserByNome(String n)
+    {
+        for(UtenteReg u : this.listUtenteReg)
+        {
+            if(u.getNome().equals(n))
+                return u;
+        }
+        return null;
+    }
+    
+    public List getListUtenteReg()
+    {
+        return listUtenteReg;
     }
 }
