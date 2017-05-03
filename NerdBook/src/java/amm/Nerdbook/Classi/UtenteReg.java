@@ -12,6 +12,7 @@ public class UtenteReg {
     private String dataNasc;
     private String username;
     private String password;
+    private String urlFoto;
     
     public UtenteReg(){
         this.idUtente=0;
@@ -21,6 +22,7 @@ public class UtenteReg {
         this.dataNasc="";
         this.username="";
         this.password="";
+        this.urlFoto="";
     }
     
     public int getIdUtente(){
@@ -77,5 +79,13 @@ public class UtenteReg {
     
     public void setPassword(String password){
         this.password = password;
+    }
+    
+    public String getUrlFoto(){
+        return this.urlFoto;
+    }
+    
+    public void setUrlFoto(String urlFoto){
+        this.urlFoto = urlFoto;
     }
 }
