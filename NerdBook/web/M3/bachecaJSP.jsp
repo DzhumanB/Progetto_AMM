@@ -8,10 +8,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <c:if test="${negato == false}">
+        <c:if test="${denied == false}">
             <title> Nerdbook | Bacheca aSocial Network </title>
         </c:if>
-        <c:if test="${negato == true}">
+        <c:if test="${denied == true}">
             <title> "ACCESS IS DENIED" / "ACCESSO NEGATO" </title>
         </c:if>
         <meta charset="UTF-8">
@@ -25,7 +25,7 @@
     </head>
     
     <body id="bodyBacheca">
-        <c:if test="${negato == false}">
+        <c:if test="${denied == false}">
             <div id="divBacheca">
                 <nav>
                     <ul>
@@ -118,7 +118,7 @@
                     </div>
             </div>
         </c:if>
-        <c:if test="${negato == true}">
+        <c:if test="${denied == true}">
             <h1> "ACCESS IS DENIED" / "ACCESSO NEGATO" </h1>
             <p> Non dispone delle autorizzazioni necessarie per accedere alla pagina. </p>
         </c:if>

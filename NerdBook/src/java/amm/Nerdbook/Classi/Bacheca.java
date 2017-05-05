@@ -24,16 +24,16 @@ public class Bacheca extends HttpServlet {
             boolean flag = (boolean)in;
             
             if(!flag){
-                request.setAttribute("negato",true);
+                request.setAttribute("denied",true);
                 request.getRequestDispatcher("bacheca.jsp").forward(request, response);
             }else{
                 in = session.getAttribute("user");
-                request.setAttribute("negato",false);
+                request.setAttribute("denied",false);
                 
                 List<UtenteReg> lu = UtenteRegFactory.getInstance().getListUtenteReg();
-                session.setAttribute("utenti", lu);
+                session.setAttribute("utente", lu);
                 List<Gruppo> lg = GruppoFactory.getInstance().getListGruppo();
-                session.setAttribute("gruppi", lg);
+                session.setAttribute("gruppo", lg);
                 
                 Object vb = request.getParameter("visualizza_bacheca"); 
                 Object vg = request.getParameter("visualizza_gruppo");
@@ -92,31 +92,45 @@ public class Bacheca extends HttpServlet {
                                 if (!(allegato.equals(""))){
                                     request.setAttribute("multimedia", 2);
                                     tipo = Post.Tipo.URL;
-                                    request.setAttribute("erroretipo", false);
+                                    request.setAttribute("errore_tipo", false);
                                     request.setAttribute("inspost", true);
                                 }else{
-                                    request.setAttribute("erroretipo", true);
+                                    request.setAttribute("errore_tipo", true);
                                 }    
                             }
                             else{
-                                request.setAttribute("erroretipo", true);
+                                request.setAttribute("errore_tipo", true);
+                            }
+                        }else if(radio.equals("audio")){
+                            if(allegato != null){
+                                if (!(allegato.equals(""))){
+                                    request.setAttribute("multimedia", 3);
+                                    tipo = Post.Tipo.AUDIO;
+                                    request.setAttribute("errore_tipo", false);
+                                    request.setAttribute("inspost", true);
+                                }else{
+                                    request.setAttribute("errore_tipo", true);
+                                }    
+                            }
+                            else{
+                                request.setAttribute("errore_tipo", true);
                             }
                         }
                     }else if(testo != null){
                         if(!testo.equals("")){
                             request.setAttribute("inspost", true);
-                            request.setAttribute("erroretipo", false);
+                            request.setAttribute("errore_tipo", false);
                             tipo = Post.Tipo.TEXT;
                         }
                     }
                     if(!allegato.equals("")){
                         if(tipo == null || !testo.equals("")){
-                            request.setAttribute("erroretipo", true);
+                            request.setAttribute("errore_tipo", true);
                             request.setAttribute("inspost", false);
                         }                        
                     }
-                    if(request.getAttribute("erroretipo") != null){
-                        if(!(boolean)request.getAttribute("erroretipo")){
+                    if(request.getAttribute("errore_tipo") != null){
+                        if(!(boolean)request.getAttribute("errore_tipo")){
                             request.setAttribute("inspost", true);
                             
                             Post n = new Post();
@@ -133,7 +147,7 @@ public class Bacheca extends HttpServlet {
                             n.setPostTipo(tipo);
                             if(tipo == Post.Tipo.TEXT){
                                 n.setContain(request.getParameter("stato"));
-                            }else if(tipo == Post.Tipo.URL || tipo == Post.Tipo.IMAGE){
+                            }else if(tipo == Post.Tipo.URL || tipo == Post.Tipo.IMAGE || tipo == Post.Tipo.AUDIO){
                                 n.setContain(request.getParameter("link"));
                             }
                             request.setAttribute("n",n);
@@ -145,11 +159,11 @@ public class Bacheca extends HttpServlet {
                         request.setAttribute("conferma", true);
                     }
                 }
-                request.getRequestDispatcher("bacheca.jsp").forward(request, response);
+                request.getRequestDispatcher("bachecaJSP.jsp").forward(request, response);
             }
         }else{
-            request.setAttribute("negato",true);
-            request.getRequestDispatcher("profilo.jsp").forward(request, response);
+            request.setAttribute("denied",true);
+            request.getRequestDispatcher("profiloJSP.jsp").forward(request, response);
         }
     }
 

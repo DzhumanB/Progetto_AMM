@@ -29,7 +29,7 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         
         if(utente == null || password == null){
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("loginJSP.jsp").forward(request, response);
         }
         if(utente != null){
             UtenteReg u = UtenteRegFactory.getInstance().getUserByNome(utente);
@@ -48,12 +48,12 @@ public class Login extends HttpServlet {
                 }else{
                     request.setAttribute("errore", true);
                     session.setAttribute("in",false);
-                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                    request.getRequestDispatcher("loginJSP.jsp").forward(request, response);
                 }
             }else{
                 request.setAttribute("errore", true);
                 session.setAttribute("in",false);
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                request.getRequestDispatcher("loginJSP.jsp").forward(request, response);
             }
         }
     }

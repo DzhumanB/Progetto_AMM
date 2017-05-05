@@ -23,17 +23,17 @@ public class Profilo extends HttpServlet {
         if(r != null){
             boolean flag = (boolean)r;
             if(!flag){
-                request.setAttribute("negato",true);
-                request.getRequestDispatcher("profilo.jsp").forward(request, response);
+                request.setAttribute("denied",true);
+                request.getRequestDispatcher("profiloJSP.jsp").forward(request, response);
             }else{
-                request.setAttribute("negato",false);
+                request.setAttribute("denied",false);
                 List<UtenteReg> l = UtenteRegFactory.getInstance().getListUtenteReg();
-                session.setAttribute("utenti", l);
+                session.setAttribute("utente", l);
                 List<Gruppo> g = GruppoFactory.getInstance().getListGruppo();
-                session.setAttribute("gruppi", g);
+                session.setAttribute("gruppo", g);
                 UtenteReg u = (UtenteReg)session.getAttribute("user");
                 
-                String nome = request.getParameter("nome"); //richiesta parametri per eventuale modifica profilo
+                String nome = request.getParameter("nome");
                 String cognome = request.getParameter("cognome");
                 String stato = request.getParameter("stato");
                 String compleanno = request.getParameter("compleanno");
@@ -44,30 +44,30 @@ public class Profilo extends HttpServlet {
                 if(nome != null){
                     if(!nome.equals("")){
                         u.setNome(nome);
-                        request.setAttribute("erroredati", false);
+                        request.setAttribute("errore_dati", false);
                     }
                 }if(cognome != null){
                     if(!cognome.equals("")){
                         u.setCognome(cognome);
-                        request.setAttribute("erroredati", false);
+                        request.setAttribute("errore_dati", false);
                     }
                 }
                 if(stato != null){
                     if(!stato.equals("")){
                         u.setFrasePres(stato);
-                        request.setAttribute("erroredati", false);
+                        request.setAttribute("errore_dati", false);
                     }
                 }
                 if(compleanno != null){
                     if(!compleanno.equals("")){
                         u.setDataNasc(compleanno);
-                        request.setAttribute("erroredati", false);
+                        request.setAttribute("errore_dati", false);
                     }
                 }
                 if(foto != null){
                     if(!foto.equals("")){
                         u.setUrlFoto(foto);
-                        request.setAttribute("erroredati", false);
+                        request.setAttribute("errore_dati", false);
                     }
                 }
                 if(password != null){
@@ -75,20 +75,20 @@ public class Profilo extends HttpServlet {
                         if(cpassword.equals(password)){
                             if (!(password.equals(""))){
                                 u.setPassword(password);
-                                request.setAttribute("erroredati", false);
+                                request.setAttribute("errore_dati", false);
                             }
                         }else{
-                            request.setAttribute("erroredati", true);
+                            request.setAttribute("errore_dati", true);
                         }
                     }
                 }else if (cpassword != null){
-                    request.setAttribute("erroredati", true);
+                    request.setAttribute("errore_dati", true);
                 }
-                request.getRequestDispatcher("profilo.jsp").forward(request, response);
+                request.getRequestDispatcher("profiloJSP.jsp").forward(request, response);
             }
         }else{
-            request.setAttribute("negato",true);
-            request.getRequestDispatcher("profilo.jsp").forward(request, response);
+            request.setAttribute("denied",true);
+            request.getRequestDispatcher("profiloJSP.jsp").forward(request, response);
         }
     }
 
