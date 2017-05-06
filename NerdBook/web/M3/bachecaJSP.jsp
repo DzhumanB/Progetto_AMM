@@ -35,6 +35,9 @@
                     </ul>
                 </nav>
                     <div id="divBody">
+                        <div id="newPost">
+                            <textarea rows="3" cols="100" name="inputAreaNewPost" id="inputAreaNewPost"> Cosa pensi... </textarea>
+                        </div>
                         <div id="postOne">
                             <div id="idWho1">
                                 <img title="FotoProfiloMini" alt="La foto dell'utente" src="../Asset/imgAsuna.jpg">
