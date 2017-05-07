@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
+    <head id="head">
         <title> Nerdbook | Bacheca aSocial Network </title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,12 +25,12 @@
             </nav>
                 <div id="divBody">
                     <div id="newPost">
-                        <textarea rows="3" cols="133" name="inputAreaNewPost" id="inputAreaNewPost"> Condividi con gli amici i tuoi pensieri... </textarea>
+                        <textarea rows="3" cols="133" name="inputAreaNewPost" id="inputAreaNewPost"> Condividi con gli amici ciò che pensi... </textarea>
                         <div id="inputAttachments">
-                            
-                        </div>
-                        <div id="buttonNewPost">
-                            <button id="buttomPushNewPost" type="submit"> Invia  </button>
+                            <form action="" method="post" enctype="multipart/form-data" id="my_form">
+                                <input type="file" name="my_file" id="my_file" />
+                                <input id="buttomPushNewPost" type="submit" name="submit" value="Invia" />
+                            </form>
                         </div>
                     </div>
                     <div id="postOne">
@@ -115,5 +115,8 @@
                     </ul>
                 </div>
             </div>
+        <div id="buttomGoUp">
+            <a href="#head"> <img title="GoUp" alt="" src="../Asset/imgGoUp.jpg"></a>
+        </div>
     </body>
 </html>
