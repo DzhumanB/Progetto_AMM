@@ -9,12 +9,14 @@ public class Gruppo {
     private String nomeGruppo;
     private String urlFotoGruppo;
     private String listPartecipanti;
+    /* private  listPostGruppo; */
     
     public Gruppo(){
         this.idGruppo = 0;
         this.nomeGruppo = "";
         this.urlFotoGruppo = "";
         this.listPartecipanti = "";
+        /* this.listPostGruppo=""; */
     }
     
     public int getIdGruppo(){
@@ -48,4 +50,5 @@ public class Gruppo {
     public void setListPartecipanti(String listPartecipanti){
         this.listPartecipanti = listPartecipanti;
     }
+    
 }

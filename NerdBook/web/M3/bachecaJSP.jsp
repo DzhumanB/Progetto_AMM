@@ -36,7 +36,75 @@
                 </nav>
                     <div id="divBody">
                         <div id="newPost">
-                            <textarea rows="3" cols="100" name="inputAreaNewPost" id="inputAreaNewPost"> Cosa pensi... </textarea>
+                        <form action="bacheca.html?visualizza_bacheca=${x.getNome()}" method="get">
+                            <div>
+                                <h1>Nuovo post su questa bacheca</h1>
+                            </div>
+                            <c:if test="${erroretipo == true}">
+                                <div id="errati">
+                                    <h1>Errore inserimento post</h1>
+                                    <p>È stato scelto un tipo di post che prevede esclusivamente l'allegato e la sua tipologia.</p>
+                                </div>
+                            </c:if>
+                            <c:if test="${inspost == true}">
+                                <h2>Riepilogo Post</h2>
+                                <p><strong>Autore:</strong> ${(n.getAutore()).getNome()}</p>
+                                <p><strong>Destinatario:</strong>
+                                    <c:if test="${f == true}"> ${(n.getDestinatario()).getNome()}</c:if>
+                                    <c:if test="${f != true}"> ${(n.getGruppo()).getNome()}</c:if>
+                                </p>
+                                <p><strong>Messaggio:</strong> 
+                                    <c:if test="${multimedia == 1}">
+                                        <img class = "postpic" alt="Post" src="${n.getContenuto()}">
+                                    </c:if>
+                                    <c:if test="${multimedia == 2}">
+                                        <a href="${n.getContenuto()}">${n.getContenuto()}</a>
+                                    </c:if> 
+                                    <c:if test="${multimedia != 2 && multimedia != 1}">
+                                        ${n.getContenuto()}
+                                    </c:if> 
+                                </p>
+                                <div>
+                                    <c:if test="${f == true}">
+                                        <input type="hidden" name = "visualizza_bacheca" value="${x.getNome()}"/>
+                                    </c:if>
+                                    <c:if test="${f != true}">
+                                        <input type="hidden" name = "visualizza_gruppo" value="${x.getNome()}"/>
+                                    </c:if>
+                                </div>
+                                    <button class = "post" type ='submit' name="conferma" value=true>Confermare</button>
+                                    <button class = "post" type ="submit" name="conferma" value=false>Annullare</button>
+                            </c:if>
+                            <c:if test="${conferma == true}">
+                                <h2>Hai scritto sulla bacheca di ${x.getNome()}</h2>
+                            </c:if>
+                            <c:if test="${inspost != true}">
+                                <div>
+                                    <label for="stato">Testo:</label><textarea name="stato" rows="2" cols="3" id="stato" placeholder="Inserire il testo del post"></textarea>
+                                </div>
+                                <div>
+                                    <label for="link">Allegato:</label><input type="url" name="link" id="link" placeholder="Inserire il link dell'allegato">
+                                </div>
+                                <div>
+                                    <div class="tipoi">
+                                        <input type="radio" name="tipo" value="imm" id="immagine"><label for="immagine">Immagine</label>
+                                    </div>
+                                    <div class="tipou">
+                                        <input type="radio" name="tipo" value="url" id="url"><label for="url">Link</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <c:if test="${f == true}">
+                                        <input type="hidden" name = "visualizza_bacheca" value="${x.getNome()}"/>
+                                    </c:if>
+                                    <c:if test="${f != true}">
+                                        <input type="hidden" name = "visualizza_gruppo" value="${x.getNome()}"/>
+                                    </c:if>
+                                </div>
+                                <button class="post" type="submit">Crea post</button>
+                                <button class="post" type="reset">Pulisci campi</button>
+                        </form>
+                            </c:if>
                         </div>
                         <div id="postOne">
                             <div id="idWho1">
@@ -102,24 +170,7 @@
                         </div>
                     </div>
             </div>
-            <div id="sideBar">
-                    <div id="sideBarPersone">
-                        <ul><li id="idPersone"><strong> Persone </strong></li></ul>
-                        <ul id="personList">
-                            <li id="persona1"> <a href=""> Ji-Yeon Park </a> </li>
-                            <li id="persona2"> <a href=""> Go Ara </a> </li>
-                            <li id="persona3"> <a href=""> Tae-Yeon Kim</a> </li>
-                        </ul>
-                    </div>
-                    <div id="sideBarGruppi">
-                        <ul><li id="idGruppi"><strong> Gruppi </strong></li></ul>
-                        <ul id="groupList">
-                            <li id="gruppi1"> <a href=""> Softair </a> </li>
-                            <li id="gruppi2"> <a href=""> Music </a> </li>
-                            <li id="gruppi3"> <a href=""> Lineage </a> </li>
-                        </ul>
-                    </div>
-            </div>
+            <jsp:include page="SidebarJSP.jsp"/>
         </c:if>
         <c:if test="${denied == true}">
             <h1> "ACCESS IS DENIED" / "ACCESSO NEGATO" </h1>
