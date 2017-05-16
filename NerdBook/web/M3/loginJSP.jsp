@@ -22,9 +22,9 @@
         <nav id="navLogin">
             <ul>
                 <li id="titleLogin"> NERDBOOK </li>
-                <li id="linkDescrizione"> <a href="descrizione.html"> Descrizione </a></li>
-                <li id="linkProfile"> <a href="profilo.html"> Profilo </a></li>
-                <li id="linkBacheca"> <a href="bacheca.html"> Bacheca </a></li>
+                <li id="linkDescrizione"> <a href="descrizioneJSP.jsp"> Descrizione </a></li>
+                <li id="linkProfile"> <a href="ProfiloServlet"> Profilo </a></li>
+                <li id="linkBacheca"> <a href="BachecaServlet"> Bacheca </a></li>
             </ul>
         </nav>
         <div id="divLogin">

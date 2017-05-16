@@ -3,7 +3,7 @@
     Created on : 2-mag-2017, 14.27.21
     Author     : Dzhuman Bohdan
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

@@ -24,8 +24,8 @@
                 <nav>
                     <ul>
                         <li id="titleDescrizione"> NERDBOOK </li>
-                        <li id="linkProfile"><a href="profilo.html"> Profilo </a></li>
-                        <li id="linkBacheca"><a href="bacheca.html"> Bacheca </a></li>
+                        <li id="linkProfile"><a href="ProfiloServlet"> Profilo </a></li>
+                        <li id="linkBacheca"><a href="BachecaServlet"> Bacheca </a></li>
                     </ul>
                 </nav>
             <div id="bodyDescrizione">    

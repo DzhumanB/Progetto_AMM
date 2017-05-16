@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class Bacheca extends HttpServlet {
+public class BachecaServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -25,7 +25,7 @@ public class Bacheca extends HttpServlet {
             
             if(!flag){
                 request.setAttribute("denied",true);
-                request.getRequestDispatcher("bacheca.jsp").forward(request, response);
+                request.getRequestDispatcher("bachecaJSP.jsp").forward(request, response);
             }else{
                 in = session.getAttribute("user");
                 request.setAttribute("denied",false);
