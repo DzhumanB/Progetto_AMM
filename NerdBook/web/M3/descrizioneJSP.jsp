@@ -14,7 +14,7 @@
         <meta name="author" content="Dzhuman Bohdan">
         <meta name="keywords" content="nerdbook social per nerd">
         <meta http-equiv="refresh" content="86400">
-        <link rel="stylesheet" type="text/css" href="M3/style.css"
+        <link rel="stylesheet" type="text/css" href="M2/style.css"
               media="screen">
         <link rel="icon" href="../Asset/logoCardWhite.jpg" type="image/jpg"/>
     </head>
@@ -24,8 +24,7 @@
                 <nav>
                     <ul>
                         <li id="titleDescrizione"> NERDBOOK </li>
-                        <li id="linkProfile"><a href="M2/profilo.html"> Profilo </a></li>
-                        <li id="linkBacheca"><a href="M2/bacheca.html"> Bacheca </a></li>
+                        <li id="linkLogin"><a href="M2/login.html"> Login </a></li>
                     </ul>
                 </nav>
             <div id="bodyDescrizione">    

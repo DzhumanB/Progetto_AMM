@@ -98,9 +98,25 @@ nav{
     margin-bottom: 1px;
 }
 
+#idWho1:before{
+    content: url("../Asset/imgAsuna.jpg");
+}
+
+#idWho2:before{
+    content: url("../Asset/imgGoara.jpg");
+}
+
+#idWho3:before{
+    content: url("../Asset/imgJiyeon.jpg");
+}
+
 #idPost3 img{
     max-width: 100%;
     max-height: 100%;
+}
+
+#idWho4:before{
+    content: url("../Asset/imgTaeyeon.jpg");
 }
 
 #idPost1, #idPost2, #idPost3, #idPost4{
@@ -113,10 +129,18 @@ nav{
 
 #CreaPost{
     margin-top: 2px;
-    width: 90px;;
+    width: 35%;
     height: 30px;;
     border-radius: 5px;
-    margin-left: 65%;
+    margin-left: 28%;
+}
+
+#CancellaCampi{
+    margin-top: 2px;
+    width: 35%;
+    height: 30px;;
+    border-radius: 5px;
+    margin-left: 1%;
 }
 
 #formCreazionePost{    
@@ -124,7 +148,33 @@ nav{
     border-radius: 5px;
     padding: 1% 1% 1% 1%;
     margin-bottom: 1px;
-    
+}
+
+#intestCreaPost{
+    border-bottom: 3px solid#000000;
+    border-left: 3px solid#000000;
+    border-right: 3px solid#000000;
+    border-radius: 5px;
+    margin: 0px;
+    margin-bottom: 3px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+    width: 100%;
+}
+
+#stato{
+    height: 30px;
+    width: 100%;
+}
+
+#link{
+    height: 15px;
+    width: 100%;
+}
+
+#sengaImg, #segnaLink{
+    float: left;
 }
 /*///////////////////////////////////////////////////*/
 /*             STILE PER LA DESCRIZIONE              */
@@ -307,7 +357,8 @@ nav{
     padding-left: 150px;
 }
 
-#divFotoProfilo{
+div#formProfile:before{
+    content: url("../Asset/profileInProfile.jpg");
     float: left;
     margin-left: 20px;
 }
@@ -375,7 +426,7 @@ nav{
 /*                > 480px AND <1024                  */
 /*///////////////////////////////////////////////////*/
 @media all and(min-width: 481px)
-           and(max-width: 1023px){
+                   and(max-width: 1023px){
     
 }
 

@@ -27,7 +27,7 @@ public class UtenteRegFactory {
         utente1.setCognome("Miyagi");
         utente1.setFrasePres("Kill noob, save mob!");
         utente1.setDataNasc("22 / 03 / 1991");
-        utente1.setUsername("miyagi.asuna");
+        utente1.setTipUtente(UtenteReg.uType.USER);
         utente1.setPassword("polkmn12345");
         
         UtenteReg utente2 = new UtenteReg();
@@ -36,7 +36,7 @@ public class UtenteRegFactory {
         utente2.setCognome("Park");
         utente2.setFrasePres("My favorite team is T-ara <3");
         utente2.setDataNasc("07 / 06 / 1993");
-        utente2.setUsername("park.ji-yean");
+        utente2.setTipUtente(UtenteReg.uType.USER);
         utente2.setPassword("polkmn12345");
         
         UtenteReg utente3 = new UtenteReg();
@@ -45,7 +45,7 @@ public class UtenteRegFactory {
         utente3.setCognome("Go");
         utente3.setFrasePres("A big kiss for each my fan :*");
         utente3.setDataNasc("11 / 02 / 1990");
-        utente3.setUsername("go.ara");
+        utente3.setTipUtente(UtenteReg.uType.USER);
         utente3.setPassword("polkmn12345");
         
         UtenteReg utente4 = new UtenteReg();
@@ -54,7 +54,7 @@ public class UtenteRegFactory {
         utente4.setCognome("Tae-Yeon");
         utente4.setFrasePres("I'm 41, but I feel like 18.");
         utente4.setDataNasc("03 / 01 / 1976");
-        utente4.setUsername("tae-yeon.kim");
+        utente4.setTipUtente(UtenteReg.uType.USER);
         utente4.setPassword("polkmn12345");
         
         listUtenteReg.add(utente1);

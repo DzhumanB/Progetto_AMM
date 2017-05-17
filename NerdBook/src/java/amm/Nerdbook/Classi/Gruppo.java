@@ -7,15 +7,18 @@ package amm.Nerdbook.Classi;
 public class Gruppo {
     private int idGruppo;
     private String nomeGruppo;
+    private String description;
     private String urlFotoGruppo;
-    private String listPartecipanti;
+    private UtenteReg creator;
     /* private  listPostGruppo; */
     
     public Gruppo(){
         this.idGruppo = 0;
         this.nomeGruppo = "";
+        this.description="";
         this.urlFotoGruppo = "";
-        this.listPartecipanti = "";
+        this.creator = null;
+        
         /* this.listPostGruppo=""; */
     }
     
@@ -35,6 +38,14 @@ public class Gruppo {
         this.nomeGruppo = nomeGruppo;
     }    
     
+    public String getDescription(){
+        return this.description;
+    }
+    
+    public void setDescription(String description){
+        this.description = description;
+    }
+    
     public String getUrlFotoGruppo(){
         return this.urlFotoGruppo;
     }
@@ -43,12 +54,22 @@ public class Gruppo {
         this.urlFotoGruppo = urlFotoGruppo;
     }
     
-    public String getListPartecipanti(){
-        return this.listPartecipanti;
+    public UtenteReg getCreator(){
+        return this.creator;
     }
     
-    public void setListPartecipanti(String listPartecipanti){
-        this.listPartecipanti = listPartecipanti;
+    public void setCreator(UtenteReg creator){
+        this.creator = creator;
     }
     
+    @Override
+    public boolean equals(Object g) {
+        if(g == null){
+            return false;
+        }
+        if (g instanceof Gruppo){
+            if (this.getIdGruppo() == ((Gruppo)g).getIdGruppo()) return true;
+        }
+        return false;
+    }
 }

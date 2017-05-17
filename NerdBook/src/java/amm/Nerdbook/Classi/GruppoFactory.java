@@ -26,19 +26,19 @@ public class GruppoFactory {
         gruppo1.setIdGruppo(0);
         gruppo1.setNomeGruppo("Softair");
         gruppo1.setUrlFotoGruppo("");
-        gruppo1.setListPartecipanti("Miyagi Asuna, Park Ji-Yeon, Go Ara, Tae-Yeon Kim");
+        gruppo1.setCreator(UtenteRegFactory.getInstance().getUserByNome("Asuna"));
         
         Gruppo gruppo2 = new Gruppo();
         gruppo2.setIdGruppo(1);
         gruppo2.setNomeGruppo("Music");
         gruppo2.setUrlFotoGruppo("");
-        gruppo2.setListPartecipanti("Miyagi Asuna, Park Ji-Yeon, Tae-Yeon Kim");
+        gruppo2.setCreator(UtenteRegFactory.getInstance().getUserByNome("Kim"));
         
         Gruppo gruppo3 = new Gruppo();
         gruppo3.setIdGruppo(2);
         gruppo3.setNomeGruppo("Lineage");
         gruppo3.setUrlFotoGruppo("");
-        gruppo3.setListPartecipanti("Miyagi Asuna, Go Ara, Tae-Yeon Kim");
+        gruppo3.setCreator(UtenteRegFactory.getInstance().getUserByNome("Ji-Yeon"));
         
         listGruppo.add(gruppo1);
         listGruppo.add(gruppo2);

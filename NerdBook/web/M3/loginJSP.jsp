@@ -14,7 +14,7 @@
         <meta name="author" content="Dzhuman Bohdan">
         <meta name="keywords" content="nerdbook social per nerd login">
         <meta http-equiv="refresh" content="86400">
-        <link rel="stylesheet" type="text/css" href="style.css"
+        <link rel="stylesheet" type="text/css" href="M2/style.css"
               media="screen">
         <link rel="icon" href="../Asset/logoCardWhite.jpg" type="image/jpg"/>
     </head>

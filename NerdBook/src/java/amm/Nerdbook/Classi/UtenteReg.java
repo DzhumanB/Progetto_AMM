@@ -4,13 +4,19 @@
 
 package amm.Nerdbook.Classi;
 
+
 public class UtenteReg {
+    
+    public enum uType{
+        USER, ADMIN
+    }; 
+    
     private int idUtente;
     private String nome;
     private String cognome;
     private String frasePres;
     private String dataNasc;
-    private String username;
+    private uType tipUtente;
     private String password;
     private String urlFoto;
     
@@ -20,7 +26,7 @@ public class UtenteReg {
         this.cognome="";
         this.frasePres="";
         this.dataNasc="";
-        this.username="";
+        this.tipUtente=uType.USER;
         this.password="";
         this.urlFoto="";
     }
@@ -65,12 +71,12 @@ public class UtenteReg {
         this.dataNasc = dataNasc;
     }
     
-    public String getUsername(){
-        return this.username;
+    public uType getTipUtente(){
+        return this.tipUtente;
     }
     
-    public void setUsername(String username){
-        this.username = username;
+    public void setTipUtente(uType tipUtente){
+        this.tipUtente = tipUtente;
     }
     
     public String getPassword(){
@@ -87,5 +93,16 @@ public class UtenteReg {
     
     public void setUrlFoto(String urlFoto){
         this.urlFoto = urlFoto;
+    }
+    
+    @Override
+    public boolean equals(Object u) {
+        if(u == null){
+            return false;
+        }
+        if (u instanceof UtenteReg){
+            if (this.getIdUtente() == ((UtenteReg)u).getIdUtente()) return true;
+        }
+        return false;
     }
 }

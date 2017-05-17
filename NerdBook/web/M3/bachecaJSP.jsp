@@ -19,7 +19,7 @@
         <meta name="author" content="Dzhuman Bohdan">
         <meta name="keywords" content="">
         <meta http-equiv="refresh" content="86400">
-        <link rel="stylesheet" type="text/css" href="style.css"
+        <link rel="stylesheet" type="text/css" href="M2/style.css"
               media="screen">
         <link rel="icon" href="../Asset/logoCardWhite.jpg" type="image/jpg"/>
     </head>
@@ -35,76 +35,29 @@
                     </ul>
                 </nav>
                     <div id="divBody">
-                        <div id="newPost">
-                        <form action="bacheca.html?visualizza_bacheca=${x.getNome()}" method="get">
-                            <div>
-                                <h1>Nuovo post su questa bacheca</h1>
-                            </div>
-                            <c:if test="${erroretipo == true}">
-                                <div id="errati">
-                                    <h1>Errore inserimento post</h1>
-                                    <p>È stato scelto un tipo di post che prevede esclusivamente l'allegato e la sua tipologia.</p>
-                                </div>
-                            </c:if>
-                            <c:if test="${inspost == true}">
-                                <h2>Riepilogo Post</h2>
-                                <p><strong>Autore:</strong> ${(n.getAutore()).getNome()}</p>
-                                <p><strong>Destinatario:</strong>
-                                    <c:if test="${f == true}"> ${(n.getDestinatario()).getNome()}</c:if>
-                                    <c:if test="${f != true}"> ${(n.getGruppo()).getNome()}</c:if>
-                                </p>
-                                <p><strong>Messaggio:</strong> 
-                                    <c:if test="${multimedia == 1}">
-                                        <img class = "postpic" alt="Post" src="${n.getContenuto()}">
-                                    </c:if>
-                                    <c:if test="${multimedia == 2}">
-                                        <a href="${n.getContenuto()}">${n.getContenuto()}</a>
-                                    </c:if> 
-                                    <c:if test="${multimedia != 2 && multimedia != 1}">
-                                        ${n.getContenuto()}
-                                    </c:if> 
-                                </p>
+                        <div id="formCreazionePost">
+                            <form action="Bacheca" method="get">
                                 <div>
-                                    <c:if test="${f == true}">
-                                        <input type="hidden" name = "visualizza_bacheca" value="${x.getNome()}"/>
-                                    </c:if>
-                                    <c:if test="${f != true}">
-                                        <input type="hidden" name = "visualizza_gruppo" value="${x.getNome()}"/>
-                                    </c:if>
-                                </div>
-                                    <button class = "post" type ='submit' name="conferma" value=true>Confermare</button>
-                                    <button class = "post" type ="submit" name="conferma" value=false>Annullare</button>
-                            </c:if>
-                            <c:if test="${conferma == true}">
-                                <h2>Hai scritto sulla bacheca di ${x.getNome()}</h2>
-                            </c:if>
-                            <c:if test="${inspost != true}">
-                                <div>
-                                    <label for="stato">Testo:</label><textarea name="stato" rows="2" cols="3" id="stato" placeholder="Inserire il testo del post"></textarea>
+                                    <h2 id="intestCreaPost">Scrivi il nuovo post</h2>
                                 </div>
                                 <div>
-                                    <label for="link">Allegato:</label><input type="url" name="link" id="link" placeholder="Inserire il link dell'allegato">
+                                    <label for="stato">Testo:</label> <br> <textarea name="stato" rows="2" cols="3" id="stato" placeholder="Inserire il testo del post"></textarea>
                                 </div>
                                 <div>
-                                    <div class="tipoi">
-                                        <input type="radio" name="tipo" value="imm" id="immagine"><label for="immagine">Immagine</label>
+                                    <label for="link">Allegato:</label> <br> <input type="url" name="link" id="link" placeholder="Inserire il link dell'allegato">
+                                </div>
+                                <div>
+                                    <div id="segnaImg">
+                                        <input type="radio" name="tipo" id="immagine"><label for="immagine">Immagine</label>
                                     </div>
-                                    <div class="tipou">
-                                        <input type="radio" name="tipo" value="url" id="url"><label for="url">Link</label>
+                                    <div id="segnaLink">
+                                        <input type="radio" name="tipo" id="url"><label for="url">Link</label>
                                     </div>
                                 </div>
-                                <div>
-                                    <c:if test="${f == true}">
-                                        <input type="hidden" name = "visualizza_bacheca" value="${x.getNome()}"/>
-                                    </c:if>
-                                    <c:if test="${f != true}">
-                                        <input type="hidden" name = "visualizza_gruppo" value="${x.getNome()}"/>
-                                    </c:if>
-                                </div>
-                                <button class="post" type="submit">Crea post</button>
-                                <button class="post" type="reset">Pulisci campi</button>
-                        </form>
-                            </c:if>
+                                <br>
+                                <button id="CancellaCampi" type="submit"> Azzera i campi</button>
+                                <button id="CreaPost" type="reset">Crea post</button>
+                            </form>
                         </div>
                         <div id="postOne">
                             <div id="idWho1">
