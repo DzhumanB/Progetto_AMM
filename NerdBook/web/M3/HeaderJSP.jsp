@@ -9,8 +9,8 @@
 <c:if test="${c=='bacheca' || c=='profilo'}">
     <ul>
         <li id="titleProfile"> NERDBOOK </li>
-        <li id="linkProfile"><a href="ProfiloServlet"> Profilo </a></li>
-        <li id="linkBacheca"><a href="BachecaServlet"> Bacheca </a></li>
+        <li id="linkProfile"><a href="M2/profilo.html"> Profilo </a></li>
+        <li id="linkBacheca"><a href="M2/bacheca.html"> Bacheca </a></li>
         <li id="logoutUtente"> Miyagi Asuna <a href="login.html"> <br> Logout </a> </li>
     </ul>
 </c:if>

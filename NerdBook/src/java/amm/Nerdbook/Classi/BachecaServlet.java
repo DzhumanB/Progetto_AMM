@@ -5,7 +5,7 @@ package amm.Nerdbook.Classi;
 
 import java.util.List;
 import java.io.IOException;
-/*import java.io.PrintWriter; */
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,11 +24,11 @@ public class BachecaServlet extends HttpServlet {
             boolean flag = (boolean)in;
             
             if(!flag){
-                request.setAttribute("denied",true);
+                request.setAttribute("negato",true);
                 request.getRequestDispatcher("bachecaJSP.jsp").forward(request, response);
             }else{
                 in = session.getAttribute("user");
-                request.setAttribute("denied",false);
+                request.setAttribute("negato",false);
                 
                 List<UtenteReg> lu = UtenteRegFactory.getInstance().getListUtenteReg();
                 session.setAttribute("utente", lu);
@@ -95,11 +95,11 @@ public class BachecaServlet extends HttpServlet {
                                     request.setAttribute("errore_tipo", false);
                                     request.setAttribute("inspost", true);
                                 }else{
-                                    request.setAttribute("errore_tipo", true);
+                                    request.setAttribute("erroretipo", true);
                                 }    
                             }
                             else{
-                                request.setAttribute("errore_tipo", true);
+                                request.setAttribute("erroretipo", true);
                             }
                         }else if(radio.equals("audio")){
                             if(allegato != null){
@@ -109,28 +109,28 @@ public class BachecaServlet extends HttpServlet {
                                     request.setAttribute("errore_tipo", false);
                                     request.setAttribute("inspost", true);
                                 }else{
-                                    request.setAttribute("errore_tipo", true);
+                                    request.setAttribute("erroretipo", true);
                                 }    
                             }
                             else{
-                                request.setAttribute("errore_tipo", true);
+                                request.setAttribute("erroretipo", true);
                             }
                         }
                     }else if(testo != null){
                         if(!testo.equals("")){
                             request.setAttribute("inspost", true);
-                            request.setAttribute("errore_tipo", false);
+                            request.setAttribute("erroretipo", false);
                             tipo = Post.Tipo.TEXT;
                         }
                     }
                     if(!allegato.equals("")){
                         if(tipo == null || !testo.equals("")){
-                            request.setAttribute("errore_tipo", true);
+                            request.setAttribute("erroretipo", true);
                             request.setAttribute("inspost", false);
                         }                        
                     }
-                    if(request.getAttribute("errore_tipo") != null){
-                        if(!(boolean)request.getAttribute("errore_tipo")){
+                    if(request.getAttribute("erroretipo") != null){
+                        if(!(boolean)request.getAttribute("erroretipo")){
                             request.setAttribute("inspost", true);
                             
                             Post n = new Post();

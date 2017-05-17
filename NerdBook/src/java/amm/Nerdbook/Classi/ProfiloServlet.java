@@ -4,7 +4,7 @@
 package amm.Nerdbook.Classi;
 
 import java.io.IOException;
-/*import java.io.PrintWriter; */
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,16 +17,16 @@ public class ProfiloServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         
         Object r = session.getAttribute("in");
         if(r != null){
             boolean flag = (boolean)r;
             if(!flag){
-                request.setAttribute("denied",true);
+                request.setAttribute("negato",true);
                 request.getRequestDispatcher("profiloJSP.jsp").forward(request, response);
             }else{
-                request.setAttribute("denied",false);
+                request.setAttribute("negato",false);
                 List<UtenteReg> l = UtenteRegFactory.getInstance().getListUtenteReg();
                 session.setAttribute("utente", l);
                 List<Gruppo> g = GruppoFactory.getInstance().getListGruppo();
@@ -44,30 +44,30 @@ public class ProfiloServlet extends HttpServlet {
                 if(nome != null){
                     if(!nome.equals("")){
                         u.setNome(nome);
-                        request.setAttribute("errore_dati", false);
+                        request.setAttribute("erroredati", false);
                     }
                 }if(cognome != null){
                     if(!cognome.equals("")){
                         u.setCognome(cognome);
-                        request.setAttribute("errore_dati", false);
+                        request.setAttribute("erroredati", false);
                     }
                 }
                 if(stato != null){
                     if(!stato.equals("")){
                         u.setFrasePres(stato);
-                        request.setAttribute("errore_dati", false);
+                        request.setAttribute("erroredati", false);
                     }
                 }
                 if(compleanno != null){
                     if(!compleanno.equals("")){
                         u.setDataNasc(compleanno);
-                        request.setAttribute("errore_dati", false);
+                        request.setAttribute("erroredati", false);
                     }
                 }
                 if(foto != null){
                     if(!foto.equals("")){
                         u.setUrlFoto(foto);
-                        request.setAttribute("errore_dati", false);
+                        request.setAttribute("erroredati", false);
                     }
                 }
                 if(password != null){
@@ -75,19 +75,19 @@ public class ProfiloServlet extends HttpServlet {
                         if(cpassword.equals(password)){
                             if (!(password.equals(""))){
                                 u.setPassword(password);
-                                request.setAttribute("errore_dati", false);
+                                request.setAttribute("erroredati", false);
                             }
                         }else{
-                            request.setAttribute("errore_dati", true);
+                            request.setAttribute("erroredati", true);
                         }
                     }
                 }else if (cpassword != null){
-                    request.setAttribute("errore_dati", true);
+                    request.setAttribute("erroredati", true);
                 }
                 request.getRequestDispatcher("profiloJSP.jsp").forward(request, response);
             }
         }else{
-            request.setAttribute("denied",true);
+            request.setAttribute("negato",true);
             request.getRequestDispatcher("profiloJSP.jsp").forward(request, response);
         }
     }
