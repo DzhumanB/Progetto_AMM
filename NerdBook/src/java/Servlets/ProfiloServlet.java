@@ -1,7 +1,9 @@
-/**
+/*
  * @author Dzhuman Bohdan
  */
-package amm.Nerdbook.Classi;
+package Servlets;
+
+import Classi.Nerdbook.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +14,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 public class ProfiloServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession();
-        
         Object r = session.getAttribute("in");
         if(r != null){
             boolean flag = (boolean)r;
@@ -27,11 +39,11 @@ public class ProfiloServlet extends HttpServlet {
                 request.getRequestDispatcher("profiloJSP.jsp").forward(request, response);
             }else{
                 request.setAttribute("negato",false);
-                List<UtenteReg> l = UtenteRegFactory.getInstance().getListUtenteReg();
-                session.setAttribute("utente", l);
-                List<Gruppo> g = GruppoFactory.getInstance().getListGruppo();
-                session.setAttribute("gruppo", g);
-                UtenteReg u = (UtenteReg)session.getAttribute("user");
+                List<UtenteReg> lst = UtenteRegFactory.getInstance().getListUtenteReg();
+                session.setAttribute("utenti", lst);
+                List<Gruppo> gr = GruppoFactory.getInstance().getListGruppo();
+                session.setAttribute("gruppi", gr);
+                UtenteReg ut = (UtenteReg)session.getAttribute("login");
                 
                 String nome = request.getParameter("nome");
                 String cognome = request.getParameter("cognome");
@@ -43,45 +55,51 @@ public class ProfiloServlet extends HttpServlet {
                 
                 if(nome != null){
                     if(!nome.equals("")){
-                        u.setNome(nome);
-                        request.setAttribute("erroredati", false);
-                    }
-                }if(cognome != null){
-                    if(!cognome.equals("")){
-                        u.setCognome(cognome);
+                        ut.setNameUtenteReg(nome);
                         request.setAttribute("erroredati", false);
                     }
                 }
+                
+                if(cognome != null){
+                    if(!cognome.equals("")){
+                        ut.setSurnameUtenteReg(cognome);
+                        request.setAttribute("erroredati", false);
+                    }
+                }
+                
                 if(stato != null){
                     if(!stato.equals("")){
-                        u.setFrasePres(stato);
+                        ut.setDescrPhrase(stato);
                         request.setAttribute("erroredati", false);
                     }
                 }
+                
                 if(compleanno != null){
                     if(!compleanno.equals("")){
-                        u.setDataNasc(compleanno);
+                        ut.setBirthDate(compleanno);
                         request.setAttribute("erroredati", false);
                     }
                 }
+                
                 if(foto != null){
                     if(!foto.equals("")){
-                        u.setUrlFoto(foto);
+                        ut.setUrlImgUtenteReg(foto);
                         request.setAttribute("erroredati", false);
                     }
                 }
+                
                 if(password != null){
                     if(cpassword != null){
                         if(cpassword.equals(password)){
                             if (!(password.equals(""))){
-                                u.setPassword(password);
+                                ut.setPassWord(password);
                                 request.setAttribute("erroredati", false);
                             }
                         }else{
                             request.setAttribute("erroredati", true);
                         }
                     }
-                }else if (cpassword != null){
+                }else if (cpassword != null){ 
                     request.setAttribute("erroredati", true);
                 }
                 request.getRequestDispatcher("profiloJSP.jsp").forward(request, response);

@@ -1,7 +1,9 @@
 /**
  * @author Dzhuman Bohdan
  */
-package amm.Nerdbook.Classi;
+package Servlets;
+
+import Classi.Nerdbook.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,45 +16,56 @@ import javax.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        HttpSession session = request.getSession();
-        
         if(request.getParameter("logout") != null){
+            HttpSession session = request.getSession(false);
             if(request.getParameter("logout").equals("1")){
                 session.invalidate();
             }
         }
         
-        String utente = request.getParameter("user");
-        String password = request.getParameter("password");
+        HttpSession session = request.getSession();
+        String utente = request.getParameter("login");
+        String password = request.getParameter("pswd");
         
         if(utente == null || password == null){
             request.getRequestDispatcher("loginJSP.jsp").forward(request, response);
         }
+        
         if(utente != null){
-            UtenteReg u = UtenteRegFactory.getInstance().getUserByNome(utente);
-            if(u != null){
-                if(u.getNome().equals(utente) && u.getPassword().equals(password)){
-                    session.setAttribute("in",true);
-                    session.setAttribute("user",u); 
-                    session.setAttribute("x",u);
-                    if(u.getNome() == null || u.getUrlFoto() == null || u.getCognome() == null || u.getFrasePres() == null){
+            UtenteReg ut = UtenteRegFactory.getInstance().getUserByName(utente);
+            if(ut != null){
+                if(ut.getNameUtenteReg().equals(utente) && ut.getPassWord().equals(password)){
+                    session.setAttribute("inLog",true);
+                    session.setAttribute("login",ut);
+                    session.setAttribute("attributeX",ut);
+                    
+                    if(ut.getNameUtenteReg() == null || ut.getUrlImgUtenteReg() == null || ut.getSurnameUtenteReg() == null || ut.getDescrPhrase() == null){
                         response.sendRedirect("profilo.html");
                     }else{
-                        List<Post> p = PostFactory.getInstance().getPostByUser(u);
+                        List<Post> p = PostFactory.getInstance().getPostByUtenteReg(ut);
                         session.setAttribute("post", p);
                         response.sendRedirect("bacheca.html");
                     }
                 }else{
-                    request.setAttribute("errore", true);
-                    session.setAttribute("in",false);
+                    request.setAttribute("notAccess", true);
+                    session.setAttribute("inLog",false);
                     request.getRequestDispatcher("loginJSP.jsp").forward(request, response);
                 }
             }else{
-                request.setAttribute("errore", true);
-                session.setAttribute("in",false);
+                request.setAttribute("notAccess", true);
+                session.setAttribute("inLog",false);
                 request.getRequestDispatcher("loginJSP.jsp").forward(request, response);
             }
         }

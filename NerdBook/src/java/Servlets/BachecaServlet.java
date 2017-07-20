@@ -1,11 +1,13 @@
-/**
+/*
  * @author Dzhuman Bohdan
  */
-package amm.Nerdbook.Classi;
+package Servlets;
 
-import java.util.List;
+import Classi.Nerdbook.*;
+
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,40 +16,47 @@ import javax.servlet.http.HttpSession;
 
 public class BachecaServlet extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession();
+        Object inLog = session.getAttribute("inLog");
         
-        Object in = session.getAttribute("in");
-        if(in != null){
-            boolean flag = (boolean)in;
-            
+        if(inLog != null){
+            boolean flag = (boolean)inLog;
             if(!flag){
                 request.setAttribute("negato",true);
                 request.getRequestDispatcher("bachecaJSP.jsp").forward(request, response);
             }else{
-                in = session.getAttribute("user");
+                inLog = session.getAttribute("login");
                 request.setAttribute("negato",false);
                 
                 List<UtenteReg> lu = UtenteRegFactory.getInstance().getListUtenteReg();
-                session.setAttribute("utente", lu);
+                session.setAttribute("utenti", lu);
                 List<Gruppo> lg = GruppoFactory.getInstance().getListGruppo();
-                session.setAttribute("gruppo", lg);
+                session.setAttribute("gruppi", lg);
                 
                 Object vb = request.getParameter("visualizza_bacheca"); 
                 Object vg = request.getParameter("visualizza_gruppo");
-                UtenteReg u;
-                Gruppo g;
                 
+                UtenteReg ut;
+                Gruppo gr;
+                 
                 if(vg != null){
                     String n = vg.toString();
-                    g = GruppoFactory.getInstance().getGruppoByNome(n);
-                    
-                    if(g != null){
-                        request.setAttribute("x", g);
-                        List<Post> p = PostFactory.getInstance().getPostByGruppo(g);
-                        
+                    gr = GruppoFactory.getInstance().getGruppoByName(n);
+                    if(gr != null){
+                        request.setAttribute("attrivuteX", gr);
+                        List<Post> p = PostFactory.getInstance().getPostByGruppo(gr);
                         if(p != null){
                             request.setAttribute("post", p);
                         }
@@ -55,30 +64,47 @@ public class BachecaServlet extends HttpServlet {
                 }else if(vb != null){
                     request.setAttribute("f",true);
                     String n = vb.toString();
-                    u = UtenteRegFactory.getInstance().getUserByNome(n);
-                    request.setAttribute("x", u); 
-                    List<Post> p = PostFactory.getInstance().getPostByUser(u);
+                    ut = UtenteRegFactory.getInstance().getUserByName(n);
+                    request.setAttribute("attributeX", ut);
+                    List<Post> p = PostFactory.getInstance().getPostByReciever(ut);
                     if(p != null){
                         request.setAttribute("post", p);
                     }
                 }else{
                     request.setAttribute("f",true);
-                    u = (UtenteReg)in;
-                    request.setAttribute("x", u);
+                    ut = (UtenteReg)inLog;
+                    request.setAttribute("attributeX", ut);
+                    List<Post> p = PostFactory.getInstance().getPostByReciever(ut);
+                    if(p != null){
+                        request.setAttribute("post", p);
+                    }
                 }
                 
                 if(request.getParameter("stato") != null || request.getParameter("tipo") != null || request.getParameter("allegato") != null){
                     String testo = request.getParameter("stato");
                     String allegato = request.getParameter("link");
                     String radio = request.getParameter("tipo");
-                    Post.Tipo tipo = null;
+                    Post.postType tipo = null;
                     
                     if(radio != null){
                         if(radio.equals("imm")){
                             if(allegato != null){
                                 if (!(allegato.equals(""))){
                                     request.setAttribute("multimedia",1);
-                                    tipo = Post.Tipo.IMAGE;
+                                    tipo = Post.postType.IMG;
+                                    request.setAttribute("erroretipo", false);
+                                    request.setAttribute("inspost", true);
+                                }else{
+                                    request.setAttribute("erroretipo", true);
+                                }    
+                            }else{
+                                request.setAttribute("erroretipo", true);
+                            }
+                        }else if(radio.equals("url")){
+                            if(allegato != null){
+                                if (!(allegato.equals(""))){
+                                    request.setAttribute("multimedia", 2);
+                                    tipo = Post.postType.URL;
                                     request.setAttribute("erroretipo", false);
                                     request.setAttribute("inspost", true);
                                 }else{
@@ -87,82 +113,52 @@ public class BachecaServlet extends HttpServlet {
                             }else{
                                 request.setAttribute("erroretipo", true);
                             }
-                        }else if(radio.equals("url")){
-                            if(allegato != null){
-                                if (!(allegato.equals(""))){
-                                    request.setAttribute("multimedia", 2);
-                                    tipo = Post.Tipo.URL;
-                                    request.setAttribute("errore_tipo", false);
-                                    request.setAttribute("inspost", true);
-                                }else{
-                                    request.setAttribute("erroretipo", true);
-                                }    
-                            }
-                            else{
-                                request.setAttribute("erroretipo", true);
-                            }
-                        }else if(radio.equals("audio")){
-                            if(allegato != null){
-                                if (!(allegato.equals(""))){
-                                    request.setAttribute("multimedia", 3);
-                                    tipo = Post.Tipo.AUDIO;
-                                    request.setAttribute("errore_tipo", false);
-                                    request.setAttribute("inspost", true);
-                                }else{
-                                    request.setAttribute("erroretipo", true);
-                                }    
-                            }
-                            else{
-                                request.setAttribute("erroretipo", true);
-                            }
                         }
                     }else if(testo != null){
                         if(!testo.equals("")){
                             request.setAttribute("inspost", true);
                             request.setAttribute("erroretipo", false);
-                            tipo = Post.Tipo.TEXT;
+                            tipo = Post.postType.TEXT;
                         }
                     }
                     if(!allegato.equals("")){
-                        if(tipo == null || !testo.equals("")){
+                        if(tipo == null){
                             request.setAttribute("erroretipo", true);
                             request.setAttribute("inspost", false);
                         }                        
                     }
+                    
                     if(request.getAttribute("erroretipo") != null){
                         if(!(boolean)request.getAttribute("erroretipo")){
                             request.setAttribute("inspost", true);
-                            
                             Post n = new Post();
-                            n.setUser((UtenteReg)session.getAttribute("user"));
-                            
-                            if(vb != null){
-                                n.setDestination(UtenteRegFactory.getInstance().getUserByNome(vb.toString()));
-                            }else{
-                                n.setDestination((UtenteReg)session.getAttribute("user"));
+                            n.setIdPublisher((UtenteReg)session.getAttribute("login"));
+                            if(vb != null){ 
+                                n.setIdReciever(UtenteRegFactory.getInstance().getUserByName(vb.toString()));
                             }
-                            if(vg != null){
-                                n.setGruppo(GruppoFactory.getInstance().getGruppoByNome(vg.toString()));
+                            else{ 
+                                n.setIdReciever((UtenteReg)session.getAttribute("login"));
                             }
-                            n.setPostTipo(tipo);
-                            if(tipo == Post.Tipo.TEXT){
+                            if(vg != null) 
+                                n.setIdRecieverGruppo(GruppoFactory.getInstance().getGruppoByName(vg.toString()));
+                            n.setpType(tipo);
+                            if(!testo.equals(""))
                                 n.setContain(request.getParameter("stato"));
-                            }else if(tipo == Post.Tipo.URL || tipo == Post.Tipo.IMAGE || tipo == Post.Tipo.AUDIO){
-                                n.setContain(request.getParameter("link"));
-                            }
+                            if(!allegato.equals(""))
+                                n.setAttachments(request.getParameter("link"));
                             request.setAttribute("n",n);
                         }
                     }
                 }
+               
                 if(request.getParameter("conferma") != null){
-                    if((request.getParameter("conferma").equals("true"))){
+                    if((request.getParameter("conferma").equals("true")))
                         request.setAttribute("conferma", true);
-                    }
                 }
-                request.getRequestDispatcher("bachecaJSP.jsp").forward(request, response);
+                request.getRequestDispatcher("bachecaJsp.jsp").forward(request, response);
             }
         }else{
-            request.setAttribute("denied",true);
+            request.setAttribute("negato",true);
             request.getRequestDispatcher("profiloJSP.jsp").forward(request, response);
         }
     }
@@ -205,5 +201,4 @@ public class BachecaServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }
